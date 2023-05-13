@@ -232,7 +232,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       DropdownMenuItem<String>(value: '+994', child: Text('+994')),
       DropdownMenuItem<String>(value: '+995', child: Text('+995')),
       DropdownMenuItem<String>(value: '+996', child: Text('+996')),
-      DropdownMenuItem<String>(value: '+998', child: Text('+998')),
+      DropdownMenuItem<String>(value: '+998', child: Text('+998'))
     ];  // add more items as needed  ];
   }
 
@@ -478,9 +478,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
         fontSize: 14,
         fontFamily: 'UbuntuRegular',
       ),
-      focusColor: Color(0xFF527693),
+      focusColor: app_color,
       focusedBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: Color(0xFF527693), width: 2),
+        borderSide: BorderSide(color: app_color, width: 2),
       ),
       enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(color: Colors.grey[200]!, width: 2),
@@ -620,9 +620,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                 fontSize: 14,
                                                 fontFamily: 'UbuntuRegular',
                                               ),
-                                              focusColor: Color(0xFF527693),
+                                              focusColor: app_color,
                                               focusedBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(color: Color(0xFF527693), width: 2),
+                                                borderSide: BorderSide(color: app_color, width: 2),
                                               ),
                                               enabledBorder: OutlineInputBorder(
                                                 borderSide: BorderSide(color: Colors.grey[200]!, width: 2),
