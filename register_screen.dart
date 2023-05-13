@@ -487,8 +487,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
     }
   }
 
-// Assign the function to FlutterError.onError
-  FlutterError.onError = _onError_ignoreOverflowErrors;
+  @override
+  void initState() {
+    super.initState();
+
+    FlutterError.onError = _onError_ignoreOverflowErrors;
+  }
 
 
   InputDecoration buildInputDecoration(String label, String hint) {
