@@ -7,8 +7,11 @@ import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 
 
+
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
+
+
 
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
@@ -460,6 +463,32 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return items;
   }
 
+  void _onError_ignoreOverflowErrors(FlutterErrorDetails details, {bool forceReport = false}) {
+    assert(details != null);
+    assert(details.exception != null);
+    // ---
+
+    bool ifIsOverflowError = false;
+
+    // Detect overflow error.
+    var exception = details.exception;
+    if (exception is FlutterError) {
+      ifIsOverflowError = !exception.diagnostics
+          .any((e) => e.value.toString().startsWith("A RenderFlex overflowed by"));
+    }
+
+    // Ignore if it's an overflow error.
+    if (ifIsOverflowError) {
+      print('Overflow error.');
+    }
+    // Throw other errors.
+    else {
+      FlutterError.dumpErrorToConsole(details, forceReport: forceReport);
+    }
+  }
+
+// Assign the function to FlutterError.onError
+  FlutterError.onError = _onError_ignoreOverflowErrors;
 
 
   InputDecoration buildInputDecoration(String label, String hint) {
