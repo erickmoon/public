@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
+import 'package:sahal_cash_prod/API.dart';
 import 'package:sahal_cash_prod/login_screen.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-import 'package:geolocator/geolocator.dart';
-import 'package:geocoding/geocoding.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 
 
@@ -18,11 +17,22 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  API sahalAPI = new API();
+
   Color app_color = Color(0xFF06800B);
 
   bool _obscureText = true;
 
   String _selectedCountryCode = '+1'; // default selected country code
+
+  TextEditingController txtFirstName = TextEditingController();
+  TextEditingController txtMiddleName = TextEditingController();
+  TextEditingController txtLastName = TextEditingController();
+  TextEditingController txtEmail = TextEditingController();
+  TextEditingController txtMobileNumber = TextEditingController();
+  TextEditingController txtConfirmMobileNumber = TextEditingController();
+  TextEditingController txtPassword = TextEditingController();
+
 
 
 // list of dropdown menu items
@@ -500,6 +510,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       labelText: label,
       labelStyle: TextStyle(
         color: Colors.grey[500],
+        backgroundColor: Colors.grey[200], // Set the background color of the label text to white
       ),
       filled: true,
       fillColor: Colors.grey[200],
@@ -525,8 +536,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
         borderSide: BorderSide(color: Colors.red, width: 2),
       ),
     );
-
   }
+
   @override
   Widget build(BuildContext context) {
     Color app_color = Colors.green;
@@ -605,408 +616,414 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       ))
                                     ],
                                   ),
-                                  SizedBox(height: 40),
-                                  Row(
-                                    children: [
-                                      Expanded(child: Align(
-                                        alignment: Alignment.bottomLeft,
-                                        child: Container(
-                                          child: Text(
-                                            "Sending from country",
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 14,
-                                              fontFamily: 'UbuntuRegular',
-                                            ),
-                                          ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 10, right: 10),
+                                    child: Column(
+                                      children: [
+                                        SizedBox(height: 40),
+                                        Row(
+                                          children: [
+                                            Expanded(child: Align(
+                                              alignment: Alignment.bottomLeft,
+                                              child: Container(
+                                                child: Text(
+                                                  "Sending from country",
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 14,
+                                                    fontFamily: 'UbuntuRegular',
+                                                  ),
+                                                ),
+                                              ),
+                                            ))
+                                          ],
                                         ),
-                                      ))
-                                    ],
-                                  ),
-                                  SizedBox( height: 6),
-                                  Column(
-                                    children: [
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(10),
-                                          color: Colors.white,
-                                        ),
-                                        child: SizedBox(
-                                          height: 50,
-                                          child: DropdownButtonFormField(
-                                            decoration: InputDecoration(
-                                              contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                                        SizedBox( height: 6),
+                                        Column(
+                                          children: [
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(10),
+                                                color: Colors.white,
+                                              ),
+                                              child: SizedBox(
+                                                height: 50,
+                                                child: DropdownButtonFormField(
+                                                  decoration: InputDecoration(
+                                                    contentPadding: EdgeInsets.symmetric(horizontal: 16),
 
-                                              labelStyle: TextStyle(
-                                                color: app_color,
-                                                fontSize: 14,
-                                                fontFamily: 'UbuntuRegular',
-                                                backgroundColor: Colors.transparent,
-                                              ),
-                                              filled: true,
-                                              fillColor: Colors.grey[200],
-                                              floatingLabelBehavior: FloatingLabelBehavior.auto,
-                                              border: OutlineInputBorder(),
-                                              hintText: 'Sending from country',
-                                              hintStyle: TextStyle(
-                                                color: Colors.grey[500],
-                                                fontSize: 14,
-                                                fontFamily: 'UbuntuRegular',
-                                              ),
-                                              focusColor: app_color,
-                                              focusedBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(color: app_color, width: 2),
-                                              ),
-                                              enabledBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(color: Colors.grey[200]!, width: 2),
-                                              ),
-                                              errorBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(color: Colors.red, width: 2),
-                                              ),
-                                              focusedErrorBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(color: Colors.red, width: 2),
+                                                    labelStyle: TextStyle(
+                                                      color: app_color,
+                                                      fontSize: 14,
+                                                      fontFamily: 'UbuntuRegular',
+                                                      backgroundColor: Colors.transparent,
+                                                    ),
+                                                    filled: true,
+                                                    fillColor: Colors.grey[200],
+                                                    floatingLabelBehavior: FloatingLabelBehavior.auto,
+                                                    border: OutlineInputBorder(),
+                                                    hintText: 'Sending from country',
+                                                    hintStyle: TextStyle(
+                                                      color: Colors.grey[500],
+                                                      fontSize: 14,
+                                                      fontFamily: 'UbuntuRegular',
+                                                    ),
+                                                    focusColor: app_color,
+                                                    focusedBorder: OutlineInputBorder(
+                                                      borderSide: BorderSide(color: Colors.transparent, width: 2),
+                                                    ),
+                                                    enabledBorder: OutlineInputBorder(
+                                                      borderSide: BorderSide(color: Colors.grey[200]!, width: 2),
+                                                    ),
+                                                    errorBorder: OutlineInputBorder(
+                                                      borderSide: BorderSide(color: Colors.red, width: 2),
+                                                    ),
+                                                    focusedErrorBorder: OutlineInputBorder(
+                                                      borderSide: BorderSide(color: Colors.red, width: 2),
+                                                    ),
+                                                  ),
+                                                  items: _dropdownMenuItems(),
+                                                  value: _selectedCountry,
+                                                  onChanged: (value) {
+                                                    setState(() {
+                                                      _selectedCountry = value!;
+                                                    });
+                                                  },
+                                                  isExpanded: true,
+                                                  itemHeight: 50, // set the itemHeight to match the height of the SizedBox
+                                                  iconSize: 24, // reduce the iconSize to fit the content within the SizedBox
+                                                  style: TextStyle(
+                                                    fontSize: 14, // reduce the font size to fit the content within the SizedBox
+                                                    fontFamily: 'UbuntuRegular',
+                                                    color: Colors.grey[500],
+                                                  ),
+                                                  dropdownColor: Colors.white,
+                                                ),
                                               ),
                                             ),
-                                            items: _dropdownMenuItems(),
-                                            value: _selectedCountry,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                _selectedCountry = value!;
-                                              });
-                                            },
-                                            isExpanded: true,
-                                            itemHeight: 50, // set the itemHeight to match the height of the SizedBox
-                                            iconSize: 24, // reduce the iconSize to fit the content within the SizedBox
-                                            style: TextStyle(
-                                              fontSize: 14, // reduce the font size to fit the content within the SizedBox
-                                              fontFamily: 'UbuntuRegular',
-                                              color: Colors.grey[500],
+                                            SizedBox(height: 15),
+                                            SizedBox(
+                                              height: 48,
+                                              child: TextFormField(
+                                                controller: txtFirstName,
+                                                keyboardType: TextInputType.text,
+                                                textInputAction: TextInputAction.next,
+                                                decoration: buildInputDecoration('First name', 'First name'),
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 14,
+                                                    fontFamily: 'UbuntuRegular'),
+                                              ),
+                                            ),// Add some vertical spacing between the two text fields
+                                            SizedBox(height: 15),
+                                            SizedBox(
+                                              height: 48,
+                                              child: TextFormField(
+                                                controller: txtMiddleName,
+                                                keyboardType: TextInputType.text,
+                                                textInputAction: TextInputAction.next,
+                                                decoration: buildInputDecoration('Middle name', 'Middle name'),
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 14,
+                                                    fontFamily: 'UbuntuRegular'),
+                                              ),
                                             ),
-                                            dropdownColor: Colors.white,
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(height: 15),
-                                      SizedBox(
-                                        height: 48,
-                                        child: TextFormField(
-                                          keyboardType: TextInputType.text,
-                                          textInputAction: TextInputAction.next,
-                                          decoration: buildInputDecoration('First name', 'First name'),
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 14,
-                                              fontFamily: 'UbuntuRegular'),
-                                        ),
-                                      ),// Add some vertical spacing between the two text fields
-                                      SizedBox(height: 15),
-                                      SizedBox(
-                                        height: 48,
-                                        child: TextFormField(
-                                          keyboardType: TextInputType.text,
-                                          textInputAction: TextInputAction.next,
-                                          decoration: buildInputDecoration('Middle name', 'Middle name'),
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 14,
-                                              fontFamily: 'UbuntuRegular'),
-                                        ),
-                                      ),
-                                      SizedBox(height: 15),
-                                      SizedBox(
-                                        height: 48,
-                                        child: TextFormField(
-                                          keyboardType: TextInputType.text,
-                                          textInputAction: TextInputAction.next,
-                                          decoration: buildInputDecoration('Last name', 'Last name'),
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 14,
-                                              fontFamily: 'UbuntuRegular'),
-                                        ),
-                                      ),
-                                      SizedBox(height: 15),
-                                      SizedBox(
-                                        height: 48,
-                                        child: TextFormField(
-                                          keyboardType: TextInputType.emailAddress,
-                                          textInputAction: TextInputAction.next,
-                                          decoration: buildInputDecoration('Email', 'Email'),
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 14,
-                                              fontFamily: 'UbuntuRegular'),
-                                        ),
-                                      ),
-                                      SizedBox(height: 15),
-                                      SizedBox(
-                                        height: 48,
-                                        child: TextFormField(
-                                          decoration: InputDecoration(
-                                            labelText: 'Mobile Number',
-                                            labelStyle: TextStyle(
-                                              color: Colors.grey[500],
-                                              fontSize: 14,
-                                              fontFamily: 'UbuntuRegular',
+                                            SizedBox(height: 15),
+                                            SizedBox(
+                                              height: 48,
+                                              child: TextFormField(
+                                                controller: txtLastName,
+                                                keyboardType: TextInputType.text,
+                                                textInputAction: TextInputAction.next,
+                                                decoration: buildInputDecoration('Last name', 'Last name'),
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 14,
+                                                    fontFamily: 'UbuntuRegular'),
+                                              ),
                                             ),
-                                            filled: true,
-                                            fillColor: Colors.grey[200],
-                                            border: OutlineInputBorder(
-                                              borderRadius: BorderRadius.circular(4.2),
-                                              borderSide: BorderSide(color: Colors.transparent),
+                                            SizedBox(height: 15),
+                                            SizedBox(
+                                              height: 48,
+                                              child: TextFormField(
+                                                controller: txtEmail,
+                                                keyboardType: TextInputType.emailAddress,
+                                                textInputAction: TextInputAction.next,
+                                                decoration: buildInputDecoration('Email', 'Email'),
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 14,
+                                                    fontFamily: 'UbuntuRegular'),
+                                              ),
                                             ),
-                                            enabledBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.circular(4.2),
-                                              borderSide: BorderSide(color: Colors.transparent),
-                                            ),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.circular(4.2),
-                                              borderSide: BorderSide(color: app_color,width: 2),
-                                            ),
-                                            prefixIcon: SizedBox(
-                                              width: 90,
-                                              height: 50,
-                                              child: DropdownButtonFormField<String>(
-                                                value: _selectedCountryCode,
-                                                items: _countryCodeDropdownMenuItems(),
-                                                onChanged: _onCountryCodeChanged,
+                                            SizedBox(height: 15),
+                                            SizedBox(
+                                              height: 48,
+                                              child: TextFormField(
+                                                controller: txtMobileNumber,
                                                 decoration: InputDecoration(
-                                                  contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                                                  labelText: 'Mobile Number',
+                                                  labelStyle: TextStyle(
+                                                    fontSize: 14,
+                                                    fontFamily: 'UbuntuRegular',
+                                                    color: Colors.grey[500],
+                                                    backgroundColor: Colors.grey[200], // Set the background color of the label text to white
+                                                  ),
                                                   filled: true,
                                                   fillColor: Colors.grey[200],
                                                   border: OutlineInputBorder(
-                                                    borderSide: BorderSide.none,
-                                                    borderRadius: BorderRadius.only(
-                                                      topLeft: Radius.circular(4.2),
-                                                      bottomLeft: Radius.circular(4.2),
+                                                    borderRadius: BorderRadius.circular(4.2),
+                                                    borderSide: BorderSide(color: Colors.transparent),
+                                                  ),
+                                                  enabledBorder: OutlineInputBorder(
+                                                    borderRadius: BorderRadius.circular(4.2),
+                                                    borderSide: BorderSide(color: Colors.transparent),
+                                                  ),
+                                                  focusedBorder: OutlineInputBorder(
+                                                    borderRadius: BorderRadius.circular(4.2),
+                                                    borderSide: BorderSide(color: app_color,width: 2),
+                                                  ),
+                                                  prefixIcon: SizedBox(
+                                                    width: 95,
+                                                    height: 50,
+                                                    child: DropdownButtonFormField<String>(
+                                                      value: _selectedCountryCode,
+                                                      items: _countryCodeDropdownMenuItems(),
+                                                      onChanged: _onCountryCodeChanged,
+                                                      decoration: InputDecoration(
+                                                        contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                                                        filled: true,
+                                                        fillColor: Colors.grey[200],
+                                                        border: OutlineInputBorder(
+                                                          borderSide: BorderSide.none,
+                                                          borderRadius: BorderRadius.only(
+                                                            topLeft: Radius.circular(4.2),
+                                                            bottomLeft: Radius.circular(4.2),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      style: TextStyle(
+                                                        fontSize: 14,
+                                                        fontFamily: 'UbuntuRegular',
+                                                        color: Colors.grey[500],
+                                                      ),
+                                                      dropdownColor: Colors.white,
+                                                      iconSize: 24,
                                                     ),
                                                   ),
                                                 ),
-                                                style: TextStyle(
-                                                  fontSize: 14,
-                                                  fontFamily: 'UbuntuRegular',
-                                                  color: Colors.grey[500],
-                                                ),
-                                                dropdownColor: Colors.white,
-                                                iconSize: 24,
                                               ),
                                             ),
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(height: 15),
-                                      SizedBox(
-                                        height: 48,
-                                        child: TextFormField(
-                                          decoration: InputDecoration(
-                                            labelText: 'Confirm mobile Number',
-                                            labelStyle: TextStyle(
-                                              color: Colors.grey[500],
-                                              fontSize: 14,
-                                              fontFamily: 'UbuntuRegular',
-                                            ),
-                                            filled: true,
-                                            fillColor: Colors.grey[200],
-                                            border: OutlineInputBorder(
-                                              borderRadius: BorderRadius.circular(4.2),
-                                              borderSide: BorderSide(color: Colors.transparent),
-                                            ),
-                                            enabledBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.circular(4.2),
-                                              borderSide: BorderSide(color: Colors.transparent),
-                                            ),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.circular(4.2),
-                                              borderSide: BorderSide(color: app_color,width: 2),
-                                            ),
-                                            prefixIcon: SizedBox(
-                                              width: 90,
-                                              height: 50,
-                                              child: DropdownButtonFormField<String>(
-                                                value: _selectedCountryCode,
-                                                items: _countryCodeDropdownMenuItems(),
-                                                onChanged: _onCountryCodeChanged,
+                                            SizedBox(height: 15),
+
+                                            SizedBox(
+                                              height: 48,
+                                              child: TextFormField(
+                                                controller: txtConfirmMobileNumber,
                                                 decoration: InputDecoration(
-                                                  contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                                                  labelText: 'Confirm mobile Number',
+                                                  labelStyle: TextStyle(
+                                                    fontSize: 14,
+                                                    fontFamily: 'UbuntuRegular',
+                                                    color: Colors.grey[500],
+                                                    backgroundColor: Colors.grey[200], // Set the background color of the label text to white
+                                                  ),
                                                   filled: true,
                                                   fillColor: Colors.grey[200],
                                                   border: OutlineInputBorder(
-                                                    borderSide: BorderSide.none,
-                                                    borderRadius: BorderRadius.only(
-                                                      topLeft: Radius.circular(4.2),
-                                                      bottomLeft: Radius.circular(4.2),
+                                                    borderRadius: BorderRadius.circular(4.2),
+                                                    borderSide: BorderSide(color: Colors.transparent),
+                                                  ),
+                                                  enabledBorder: OutlineInputBorder(
+                                                    borderRadius: BorderRadius.circular(4.2),
+                                                    borderSide: BorderSide(color: Colors.transparent),
+                                                  ),
+                                                  focusedBorder: OutlineInputBorder(
+                                                    borderRadius: BorderRadius.circular(4.2),
+                                                    borderSide: BorderSide(color: app_color,width: 2),
+                                                  ),
+                                                  prefixIcon: SizedBox(
+                                                    width: 95,
+                                                    height: 50,
+                                                    child: DropdownButtonFormField<String>(
+                                                      value: _selectedCountryCode,
+                                                      items: _countryCodeDropdownMenuItems(),
+                                                      onChanged: _onCountryCodeChanged,
+                                                      decoration: InputDecoration(
+                                                        contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                                                        filled: true,
+                                                        fillColor: Colors.grey[200],
+                                                        border: OutlineInputBorder(
+                                                          borderSide: BorderSide.none,
+                                                          borderRadius: BorderRadius.only(
+                                                            topLeft: Radius.circular(4.2),
+                                                            bottomLeft: Radius.circular(4.2),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      style: TextStyle(
+                                                        fontSize: 14,
+                                                        fontFamily: 'UbuntuRegular',
+                                                        color: Colors.grey[500],
+                                                      ),
+                                                      dropdownColor: Colors.white,
+                                                      iconSize: 24,
                                                     ),
                                                   ),
                                                 ),
+                                              ),
+                                            ),
+                                            SizedBox(height: 15),
+                                            SizedBox(
+                                              height: 48,
+                                              child: TextFormField(
+                                                controller: txtPassword,
+                                                obscureText: _obscureText,
+                                                textInputAction: TextInputAction.next,
+                                                decoration: buildInputDecoration('Password', 'Password')
+                                                    .copyWith(
+                                                  suffixIcon: IconButton(
+                                                    icon: Visibility(
+                                                      visible: _obscureText,
+                                                      child: Icon(Icons.visibility),
+                                                      replacement: Icon(Icons.visibility_off),
+                                                    ),
+                                                    onPressed: () {
+                                                      setState(() {
+                                                        _obscureText = !_obscureText;
+                                                      });
+                                                    },
+                                                  ),
+                                                ),
                                                 style: TextStyle(
+                                                  color: Colors.black,
                                                   fontSize: 14,
                                                   fontFamily: 'UbuntuRegular',
-                                                  color: Colors.grey[500],
                                                 ),
-                                                dropdownColor: Colors.white,
-                                                iconSize: 24,
                                               ),
                                             ),
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(height: 15),
-                                      SizedBox(
-                                        height: 48,
-                                        child: TextFormField(
-                                          obscureText: _obscureText,
-                                          textInputAction: TextInputAction.next,
-                                          decoration: buildInputDecoration('Password', 'Password')
-                                              .copyWith(
-                                            suffixIcon: IconButton(
-                                              icon: Visibility(
-                                                visible: _obscureText,
-                                                child: Icon(Icons.visibility),
-                                                replacement: Icon(Icons.visibility_off),
-                                              ),
-                                              onPressed: () {
-                                                setState(() {
-                                                  _obscureText = !_obscureText;
-                                                });
-                                              },
-                                            ),
-                                          ),
-                                          style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 14,
-                                            fontFamily: 'UbuntuRegular',
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(height: 15),
-                                      SizedBox(
-                                        height: 48,
-                                        child: TextFormField(
-                                          keyboardType: TextInputType.text,
-                                          textInputAction: TextInputAction.done,
-                                          decoration: buildInputDecoration('Referral code', 'Referral code'),
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 14,
-                                              fontFamily: 'UbuntuRegular'),
-                                        ),
-                                      ),
-                                      SizedBox(height: 30),
-                                      Center(
-                                        child: RichText(
-                                          textAlign: TextAlign.center,
-                                          text: TextSpan(
-                                            style: TextStyle(
-                                              fontSize: 15,
-                                              fontFamily: 'UbuntuBold',
-                                              color: Colors.black,
-                                            ),
-                                            children: [
-                                              TextSpan(
-                                                text: 'By submitting the form, you agree to our ',
-                                                style: TextStyle(
-                                                  color: Colors.grey,
-                                                ),
-                                                children: [
-                                                  TextSpan(
-                                                    text: 'Terms of Service',
-                                                    style: TextStyle(
-                                                      decoration: TextDecoration.underline,
-                                                      color: Colors.blue,
-                                                    ),
-                                                    recognizer: TapGestureRecognizer()
-                                                      ..onTap = () {
-                                                        // Navigate to the Terms of Service page
-                                                      },
+                                            SizedBox(height: 15),
+                                            Center(
+                                              child: RichText(
+                                                textAlign: TextAlign.center,
+                                                text: TextSpan(
+                                                  style: TextStyle(
+                                                    fontSize: 15,
+                                                    fontFamily: 'UbuntuBold',
+                                                    color: Colors.black,
                                                   ),
-                                                  TextSpan(text: ' and ',
+                                                  children: [
+                                                    TextSpan(
+                                                      text: 'By submitting the form, you agree to our ',
                                                       style: TextStyle(
                                                         color: Colors.grey,
-                                                      )),
-                                                  TextSpan(
-                                                    text: 'Privacy Policy',
-                                                    style: TextStyle(
-                                                      decoration: TextDecoration.underline,
-                                                      color: Colors.blue,
+                                                      ),
+                                                      children: [
+                                                        TextSpan(
+                                                          text: 'Terms of Service',
+                                                          style: TextStyle(
+                                                            decoration: TextDecoration.underline,
+                                                            color: Colors.blue,
+                                                          ),
+                                                          recognizer: TapGestureRecognizer()
+                                                            ..onTap = () {
+                                                              _launchURL(sahalAPI.termsURL);
+                                                            },
+                                                        ),
+                                                        TextSpan(text: ' and ',
+                                                            style: TextStyle(
+                                                              color: Colors.grey,
+                                                            )),
+                                                        TextSpan(
+                                                          text: 'Privacy Policy',
+                                                          style: TextStyle(
+                                                            decoration: TextDecoration.underline,
+                                                            color: Colors.blue,
+                                                          ),
+                                                          recognizer: TapGestureRecognizer()
+                                                            ..onTap = () {
+                                                              // Navigate to the Privacy Policy page
+                                                            },
+                                                        ),
+                                                        TextSpan(text: ' and allow us to contact you by email and SMS',
+                                                          style: TextStyle(
+                                                            color: Colors.grey,
+                                                          ),)
+                                                      ],
                                                     ),
-                                                    recognizer: TapGestureRecognizer()
-                                                      ..onTap = () {
-                                                        // Navigate to the Privacy Policy page
-                                                      },
-                                                  ),
-                                                  TextSpan(text: ' and allow us to contact you by email and SMS',
-                                                    style: TextStyle(
-                                                      color: Colors.grey,
-                                                    ),)
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-
-                                      SizedBox(height: 25),
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Expanded(
-                                            child: ElevatedButton(
-                                              onPressed: () {},
-                                              child: Text('Create an account',
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 14,
-                                                  fontFamily: 'UbuntuBold',
-                                                ),),
-                                              style: ElevatedButton.styleFrom(
-                                                padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 45.5),
-                                                backgroundColor: app_color, // Set the button background color
-                                                foregroundColor: Colors.white, // Set the text color
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius: BorderRadius.circular(10),
-                                                  // Set the radius to 20
+                                                  ],
                                                 ),
-                                                elevation: 0, // Remove the button elevation
                                               ),
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            "Already have an account? ",
-                                            textAlign: TextAlign.end,
-                                            style: TextStyle(
-                                              color: Colors.grey,
-                                              fontSize: 15,
-                                              fontFamily: 'UbuntuBold',
+
+                                            SizedBox(height: 25),
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Expanded(
+                                                  child: ElevatedButton(
+                                                    onPressed: () {
+                                                      createAccount();
+                                                    },
+                                                    child: Text('Create an account',
+                                                      textAlign: TextAlign.center,
+                                                      style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 14,
+                                                        fontFamily: 'UbuntuBold',
+                                                      ),),
+                                                    style: ElevatedButton.styleFrom(
+                                                      padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 45.5),
+                                                      backgroundColor: app_color, // Set the button background color
+                                                      foregroundColor: Colors.white, // Set the text color
+                                                      shape: RoundedRectangleBorder(
+                                                        borderRadius: BorderRadius.circular(10),
+                                                        // Set the radius to 20
+                                                      ),
+                                                      elevation: 0, // Remove the button elevation
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
-                                          ),
-                                          SizedBox(width: 3),
-                                          TextButton(
-                                            onPressed: () {
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(builder: (context) => LoginScreen()),
-                                              );
-                                            },
-                                            child: Text(
-                                              "Log in",
-                                              textAlign: TextAlign.start,
-                                              style: TextStyle(
-                                                color: app_color,
-                                                fontSize: 15,
-                                                fontFamily: 'UbuntuBold',
-                                              ),
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  "Already have an account? ",
+                                                  textAlign: TextAlign.end,
+                                                  style: TextStyle(
+                                                    color: Colors.grey,
+                                                    fontSize: 15,
+                                                    fontFamily: 'UbuntuBold',
+                                                  ),
+                                                ),
+                                                SizedBox(width: 3),
+                                                TextButton(
+                                                  onPressed: () {
+                                                    Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(builder: (context) => LoginScreen()),
+                                                    );
+                                                  },
+                                                  child: Text(
+                                                    "Log in",
+                                                    textAlign: TextAlign.start,
+                                                    style: TextStyle(
+                                                      color: app_color,
+                                                      fontSize: 15,
+                                                      fontFamily: 'UbuntuBold',
+                                                    ),
+                                                  ),
+                                                )
+                                              ],
                                             ),
-                                          )
-                                        ],
-                                      ),
-                                      SizedBox(height: 40),
-                                    ],
+                                            SizedBox(height: 40),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   )
                                 ],
                               ))
@@ -1026,6 +1043,36 @@ class _RegisterScreenState extends State<RegisterScreen> {
           ],
         ),
       ),
+    );
+  }
+  _launchURL(String url_str) async {
+    String url = url_str;
+    final uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+  void createAccount() {
+
+
+    String first_name  = txtFirstName.text;
+    String middle_name  = txtMiddleName.text;
+    String last_name  = txtLastName.text;
+    String email  = txtEmail.text;
+    String mobile_number  = txtMobileNumber.text;
+    String confirm_mobile_number  = txtConfirmMobileNumber.text;
+    String password  = txtPassword.text;
+    String selected_country = _selectedCountry;
+    String selected_country_code = _selectedCountryCode;
+
+
+
+
+    Fluttertoast.showToast(
+      msg: 'Please fill in all fields.',
+      toastLength: Toast.LENGTH_SHORT,
     );
   }
 }
