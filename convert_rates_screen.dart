@@ -48,6 +48,10 @@ class _ConvertRatesScreenState extends State<ConvertRatesScreen> {
   late String to_country_currency_code;
   late String from_country_flag;
   late String to_country_flag;
+
+  String conversionRateText = "";
+
+  double conversionRate = 0.0;
   @override
   void initState() {
     super.initState();
@@ -60,14 +64,17 @@ class _ConvertRatesScreenState extends State<ConvertRatesScreen> {
     to_country_flag = widget.to_country_flag;
     youSendController.addListener(_onYouSendChanged);
     youReceiveController.addListener(_onYouReceiveChanged);
-
+    conversionRate = 0.0;
+    currencyConverter();
+    conversionRateText = "Exchange rate 1 $from_country_currency_code = 0.0 $to_country_currency_code";
   }
+
 
   double youSendAmount = 0;
   double youReceiveAmount = 0;
   double fees = 0;
   double totalToPay = 0;
-  double conversionRate = 0.0;
+
   double payment_charge_percentage = 0.03;
 
   TextEditingController youSendController = TextEditingController();
@@ -82,21 +89,21 @@ class _ConvertRatesScreenState extends State<ConvertRatesScreen> {
     youReceiveController.dispose();
     super.dispose();
   }
-
   void _onYouSendChanged() {
 
     setState(() async {
       youSendAmount = double.tryParse(youSendController.text) ?? 0;
 
 
-        // Call the API here to convert the currency
-        // Update the value of youReceiveAmount
-        if(conversionRate == 0.0){
-          conversionRate = currencyConverter() as double;
-        }
-        youReceiveAmount = youSendAmount * conversionRate;
+      // Call the API here to convert the currency
+      // Update the value of youReceiveAmount
+      conversionRate = currencyConverter() as double;
+      youReceiveAmount = youSendAmount * conversionRate;
+      Fluttertoast.showToast(
+          msg: 'You receive $youReceiveAmount Rate $conversionRate',
+          toastLength: Toast.LENGTH_SHORT);
 
-        _calculateFeesAndTotalToPay();
+      _calculateFeesAndTotalToPay();
 
     });
   }
@@ -337,7 +344,7 @@ class _ConvertRatesScreenState extends State<ConvertRatesScreen> {
                         child: Align(
                           alignment: Alignment.center,
                           child: Text(
-                            "Exchange Rate 1 $from_country_currency_code = $conversionRate",
+                            conversionRateText,
                             style: TextStyle(
                               color: app_color,
                               fontSize: 15,
@@ -542,6 +549,7 @@ class _ConvertRatesScreenState extends State<ConvertRatesScreen> {
       ),
     );
   }
+
   Future<double> currencyConverter() async {
     if (conversionRate == 0.0) {
       ProgressDialogManager progressDialogManager = ProgressDialogManager();
@@ -575,9 +583,9 @@ class _ConvertRatesScreenState extends State<ConvertRatesScreen> {
 
           if (message == "success") {
             conversionRate = double.parse(jsonResponse['conversion_rate']);
-            Fluttertoast.showToast(
-                msg: 'Rate $conversionRate',
-                toastLength: Toast.LENGTH_SHORT);
+            setState(() {
+              conversionRateText = "Exchange rate 1 $from_country_currency_code = $conversionRate $to_country_currency_code";
+            });
             return conversionRate;
           } else {
             Fluttertoast.showToast(
