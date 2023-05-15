@@ -28,9 +28,6 @@ class _RateScreenState extends State<RateScreen> {
   late List<dynamic> countries = [];
   List<String> remittance_types = [];
 
-  bool isChecked = false;
-
-  String? selectedRemittance;
 
   Future<List<dynamic>> _getCountries() async {
     ProgressDialogManager progressDialogManager = ProgressDialogManager();
@@ -73,10 +70,6 @@ class _RateScreenState extends State<RateScreen> {
     return []; // Return an empty array if there was an error
   }
 
-  void initState() {
-    super.initState();
-    fetchCountries();
-  }
 
   void fetchCountries() async {
     countries = await _getCountries();
@@ -251,6 +244,20 @@ class _RateScreenState extends State<RateScreen> {
       remittance_types.add("M-Pesa");
       remittance_types.add("Airtel Money");
     }
+  }
+
+  String? selectedRemittance; // Track the currently selected remittance type
+
+  List<CheckboxItem> checkboxItems = [];
+
+  @override
+  void initState() {
+    fetchCountries();
+    super.initState();
+    // Populate the checkboxItems list based on remittance_types
+    checkboxItems = remittance_types
+        .map((remittance) => CheckboxItem(remittance, false))
+        .toList();
   }
 
   @override
@@ -472,10 +479,9 @@ class _RateScreenState extends State<RateScreen> {
                           ),
                           child: ListView.builder(
                             shrinkWrap: true,
-                            itemCount: remittance_types.length,
+                            itemCount: checkboxItems.length,
                             itemBuilder: (BuildContext context, int index) {
-                              final remittance = remittance_types[index];
-                              bool isChecked = false; // Set initial checkbox state
+                              final remittance = checkboxItems[index];
 
                               return StatefulBuilder(
                                 builder: (BuildContext context, StateSetter setState) {
@@ -484,7 +490,7 @@ class _RateScreenState extends State<RateScreen> {
                                     child: ListTile(
                                       leading: Icon(Icons.phone_android),
                                       title: Text(
-                                        remittance,
+                                        remittance.label,
                                         style: TextStyle(
                                           color: Colors.grey,
                                           fontSize: 14,
@@ -492,10 +498,16 @@ class _RateScreenState extends State<RateScreen> {
                                         ),
                                       ),
                                       trailing: Checkbox(
-                                        value: isChecked,
+                                        value: remittance.isChecked,
                                         onChanged: (bool? value) {
                                           setState(() {
-                                            isChecked = value ?? false;
+                                            // Update the selected remittance
+                                            selectedRemittance = remittance.label;
+                                            // Update the isChecked property for each checkbox item
+                                            checkboxItems = checkboxItems
+                                                .map((item) =>
+                                                CheckboxItem(item.label, item.label == selectedRemittance))
+                                                .toList();
                                           });
                                         },
                                         activeColor: Color(0xFF034D06),
@@ -570,4 +582,10 @@ class _RateScreenState extends State<RateScreen> {
 
 
 
+}
+class CheckboxItem {
+  String label;
+  bool isChecked;
+
+  CheckboxItem(this.label, this.isChecked);
 }
