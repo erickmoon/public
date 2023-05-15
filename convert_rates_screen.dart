@@ -50,7 +50,8 @@ class _ConvertRatesScreenState extends State<ConvertRatesScreen> {
   late String to_country_flag;
 
   String conversionRateText = "";
-
+  double minimum_sendable_amount = 0;
+  double maximum_sendable_amount = 0;
   double conversionRate = 0.0;
   @override
   void initState() {
@@ -64,8 +65,9 @@ class _ConvertRatesScreenState extends State<ConvertRatesScreen> {
     to_country_flag = widget.to_country_flag;
     youSendController.addListener(_onYouSendChanged);
     youReceiveController.addListener(_onYouReceiveChanged);
+
     conversionRate = 0.0;
-    currencyConverter();
+    _getConversionRate();
     conversionRateText = "Exchange rate 1 $from_country_currency_code = 0.0 $to_country_currency_code";
   }
 
@@ -75,7 +77,7 @@ class _ConvertRatesScreenState extends State<ConvertRatesScreen> {
   double fees = 0;
   double totalToPay = 0;
 
-  double payment_charge_percentage = 0.03;
+  double payment_charge_percentage = 0.00;
 
   TextEditingController youSendController = TextEditingController();
   TextEditingController youReceiveController = TextEditingController();
@@ -89,39 +91,57 @@ class _ConvertRatesScreenState extends State<ConvertRatesScreen> {
     youReceiveController.dispose();
     super.dispose();
   }
+
   void _onYouSendChanged() {
+    youSendAmount = double.tryParse(youSendController.text) ?? 0;
+    // Perform the asynchronous work
+    _getConversionRate().then((double rate) {
+      double convertedValue = youSendAmount * rate;
 
-    setState(() async {
-      youSendAmount = double.tryParse(youSendController.text) ?? 0;
-
-
-      // Call the API here to convert the currency
-      // Update the value of youReceiveAmount
-      conversionRate = currencyConverter() as double;
-      youReceiveAmount = youSendAmount * conversionRate;
-      Fluttertoast.showToast(
-          msg: 'You receive $youReceiveAmount Rate $conversionRate',
-          toastLength: Toast.LENGTH_SHORT);
-
-      _calculateFeesAndTotalToPay();
-
+      // Update the state inside setState
+      setState(() {
+        conversionRate = rate;
+        youReceiveAmount = youSendAmount * conversionRate;
+        youReceiveAmount = double.parse(youReceiveAmount.toStringAsFixed(2));
+        youReceiveController.text = youReceiveAmount.toStringAsFixed(2);
+        //youReceiveController.text = youReceiveAmount as String;
+        _calculateFeesAndTotalToPay();
+      });
     });
   }
 
+
   void _onYouReceiveChanged() {
+    youReceiveAmount = double.tryParse(youReceiveController.text) ?? 0;
+    // Perform the asynchronous work
+    _getConversionRate().then((double rate) {
+
+      // Update the state inside setState
+      setState(() {
+        conversionRate = rate;
+        youSendAmount = youReceiveAmount / conversionRate;
+        youSendAmount = double.parse(youSendAmount.toStringAsFixed(2));
+        youSendController.text = youSendAmount.toStringAsFixed(2);
+        //youSendController.text = youSendAmount as String;
+        _calculateFeesAndTotalToPay();
+      });
+    });
+
     setState(() {
-      youReceiveAmount = double.tryParse(youReceiveController.text) ?? 0;
+      youReceiveController.text = youReceiveAmount as String;
     });
   }
 
   void _calculateFeesAndTotalToPay() {
     fees = youSendAmount * payment_charge_percentage;
+    fees = double.parse(fees.toStringAsFixed(2));
     totalToPay = youSendAmount + fees;
+    totalToPay = double.parse(totalToPay.toStringAsFixed(2));
   }
 
   void _onContinuePressed() {
     if (youSendAmount != 0 && youReceiveAmount != 0 && fees != 0 && totalToPay != 0) {
-      Fluttertoast.showToast(msg: 'All variables: $youSendAmount, $youReceiveAmount, $fees, $totalToPay');
+      Fluttertoast.showToast(msg: 'All variables: $youSendAmount, $youReceiveAmount, $fees, $totalToPay minumum $minimum_sendable_amount maximum $maximum_sendable_amount');
     } else {
       Fluttertoast.showToast(msg: 'Please enter valid values');
     }
@@ -387,7 +407,7 @@ class _ConvertRatesScreenState extends State<ConvertRatesScreen> {
                                         fontFamily: 'UbuntuBold',
                                       ),
                                       ),
-                                      trailing: Text("$youReceiveAmount",
+                                      trailing: Text("$youReceiveAmount $to_country_currency_code",
                                         style: TextStyle(
                                           color: Colors.grey,
                                           fontSize: 14,
@@ -423,7 +443,7 @@ class _ConvertRatesScreenState extends State<ConvertRatesScreen> {
                                         fontFamily: 'UbuntuBold',
                                       ),
                                     ),
-                                    trailing: Text("$youSendAmount",
+                                    trailing: Text("$youSendAmount $from_country_currency_code",
                                       style: TextStyle(
                                         color: Colors.grey,
                                         fontSize: 14,
@@ -459,7 +479,7 @@ class _ConvertRatesScreenState extends State<ConvertRatesScreen> {
                                         fontFamily: 'UbuntuBold',
                                       ),
                                     ),
-                                    trailing: Text("$fees",
+                                    trailing: Text("$fees $from_country_currency_code",
                                       style: TextStyle(
                                         color: Colors.grey,
                                         fontSize: 14,
@@ -489,7 +509,7 @@ class _ConvertRatesScreenState extends State<ConvertRatesScreen> {
                                         fontFamily: 'UbuntuBold',
                                       ),
                                     ),
-                                    trailing: Text("$totalToPay",
+                                    trailing: Text("$totalToPay $from_country_currency_code",
                                       style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 14,
@@ -550,7 +570,8 @@ class _ConvertRatesScreenState extends State<ConvertRatesScreen> {
     );
   }
 
-  Future<double> currencyConverter() async {
+
+  Future<double> _getConversionRate() async {
     if (conversionRate == 0.0) {
       ProgressDialogManager progressDialogManager = ProgressDialogManager();
       progressDialogManager.showProgressDialog(context, title: "Loading", message: "Getting rates...");
@@ -583,6 +604,9 @@ class _ConvertRatesScreenState extends State<ConvertRatesScreen> {
 
           if (message == "success") {
             conversionRate = double.parse(jsonResponse['conversion_rate']);
+            minimum_sendable_amount = double.parse(jsonResponse['minimum_sendable_amount']);
+            minimum_sendable_amount = double.parse(minimum_sendable_amount.toStringAsFixed(2));
+            payment_charge_percentage = double.parse(jsonResponse['payment_charge_percentage']);
             setState(() {
               conversionRateText = "Exchange rate 1 $from_country_currency_code = $conversionRate $to_country_currency_code";
             });
@@ -608,6 +632,5 @@ class _ConvertRatesScreenState extends State<ConvertRatesScreen> {
 
     return conversionRate;
   }
-
 
 }
