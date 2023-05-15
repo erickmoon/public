@@ -1,9 +1,19 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:sahal_cash_prod/progress_dialog.dart';
 import 'package:sahal_cash_prod/select_recipient_screen.dart';
+import 'API.dart';
 import 'dashboard_screen.dart';
+
+
+import 'dart:convert';
+
+import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:http/http.dart' as http;
 
 class ConvertRatesScreen extends StatefulWidget {
   final String from_country;
@@ -57,34 +67,37 @@ class _ConvertRatesScreenState extends State<ConvertRatesScreen> {
   double youReceiveAmount = 0;
   double fees = 0;
   double totalToPay = 0;
-  double conversionRate = 10;
+  double conversionRate = 0.0;
   double payment_charge_percentage = 0.03;
 
   TextEditingController youSendController = TextEditingController();
   TextEditingController youReceiveController = TextEditingController();
 
-  Timer? _timer;
+
 
 
   @override
   void dispose() {
     youSendController.dispose();
     youReceiveController.dispose();
-    _timer?.cancel();
     super.dispose();
   }
 
   void _onYouSendChanged() {
-    setState(() {
+
+    setState(() async {
       youSendAmount = double.tryParse(youSendController.text) ?? 0;
-      _timer?.cancel();
-      _timer = Timer(const Duration(seconds: 3), () {
+
+
         // Call the API here to convert the currency
         // Update the value of youReceiveAmount
+        if(conversionRate == 0.0){
+          conversionRate = currencyConverter() as double;
+        }
         youReceiveAmount = youSendAmount * conversionRate;
 
         _calculateFeesAndTotalToPay();
-      });
+
     });
   }
 
@@ -291,12 +304,12 @@ class _ConvertRatesScreenState extends State<ConvertRatesScreen> {
                                 height: 30,
                                 width: 100,
                                 child: TextFormField(
+
                                   controller: youReceiveController,
                                   textAlign: TextAlign.center,
                                   keyboardType: TextInputType.number,
                                   style: TextStyle(
                                       color: Colors.black,
-                                      fontSize: 14,
                                       fontFamily: 'UbuntuRegular'),
                                   decoration: InputDecoration(
                                     hintText: '0.000',
@@ -529,4 +542,64 @@ class _ConvertRatesScreenState extends State<ConvertRatesScreen> {
       ),
     );
   }
+  Future<double> currencyConverter() async {
+    if (conversionRate == 0.0) {
+      ProgressDialogManager progressDialogManager = ProgressDialogManager();
+      progressDialogManager.showProgressDialog(context, title: "Loading", message: "Getting rates...");
+
+      try {
+        var headers = {
+          'Content-Type': 'application/json'
+        };
+        API sahalAPI = API();
+        String apiURL = sahalAPI.apiURL;
+
+        var request = http.Request('POST', Uri.parse(apiURL));
+        request.body = json.encode({
+          "api_key": sahalAPI.apiKEY,
+          "consumer_key": sahalAPI.consumerKEY,
+          "service": "get_rates",
+          "from_currency": from_country_currency_code,
+          "to_currency": to_country_currency_code
+        });
+        request.headers.addAll(headers);
+
+        http.StreamedResponse response = await request.send();
+        String responseBody = await response.stream.bytesToString();
+
+        if (response.statusCode == 200) {
+          progressDialogManager.hideProgressDialog();
+          Map<String, dynamic> jsonResponse = json.decode(responseBody);
+
+          String message = jsonResponse['message'];
+
+          if (message == "success") {
+            conversionRate = double.parse(jsonResponse['conversion_rate']);
+            Fluttertoast.showToast(
+                msg: 'Rate $conversionRate',
+                toastLength: Toast.LENGTH_SHORT);
+            return conversionRate;
+          } else {
+            Fluttertoast.showToast(
+                msg: 'Something went wrong. Check your internet connection',
+                toastLength: Toast.LENGTH_SHORT);
+          }
+        } else {
+          progressDialogManager.hideProgressDialog();
+          Fluttertoast.showToast(
+              msg: 'Something went wrong. Check your internet connection',
+              toastLength: Toast.LENGTH_SHORT);
+        }
+      } catch (e) {
+        progressDialogManager.hideProgressDialog();
+        Fluttertoast.showToast(
+            msg: '$e',
+            toastLength: Toast.LENGTH_SHORT);
+      }
+    }
+
+    return conversionRate;
+  }
+
+
 }
