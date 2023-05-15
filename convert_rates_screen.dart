@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sahal_cash_prod/select_recipient_screen.dart';
 import 'dashboard_screen.dart';
 
@@ -45,9 +48,64 @@ class _ConvertRatesScreenState extends State<ConvertRatesScreen> {
     to_country_currency_code = widget.to_country_currency_code;
     from_country_flag = widget.from_country_flag;
     to_country_flag = widget.to_country_flag;
+    youSendController.addListener(_onYouSendChanged);
+    youReceiveController.addListener(_onYouReceiveChanged);
 
   }
 
+  double youSendAmount = 0;
+  double youReceiveAmount = 0;
+  double fees = 0;
+  double totalToPay = 0;
+  double conversionRate = 10;
+  double payment_charge_percentage = 0.03;
+
+  TextEditingController youSendController = TextEditingController();
+  TextEditingController youReceiveController = TextEditingController();
+
+  Timer? _timer;
+
+
+  @override
+  void dispose() {
+    youSendController.dispose();
+    youReceiveController.dispose();
+    _timer?.cancel();
+    super.dispose();
+  }
+
+  void _onYouSendChanged() {
+    setState(() {
+      youSendAmount = double.tryParse(youSendController.text) ?? 0;
+      _timer?.cancel();
+      _timer = Timer(const Duration(seconds: 3), () {
+        // Call the API here to convert the currency
+        // Update the value of youReceiveAmount
+        youReceiveAmount = youSendAmount * conversionRate;
+
+        _calculateFeesAndTotalToPay();
+      });
+    });
+  }
+
+  void _onYouReceiveChanged() {
+    setState(() {
+      youReceiveAmount = double.tryParse(youReceiveController.text) ?? 0;
+    });
+  }
+
+  void _calculateFeesAndTotalToPay() {
+    fees = youSendAmount * payment_charge_percentage;
+    totalToPay = youSendAmount + fees;
+  }
+
+  void _onContinuePressed() {
+    if (youSendAmount != 0 && youReceiveAmount != 0 && fees != 0 && totalToPay != 0) {
+      Fluttertoast.showToast(msg: 'All variables: $youSendAmount, $youReceiveAmount, $fees, $totalToPay');
+    } else {
+      Fluttertoast.showToast(msg: 'Please enter valid values');
+    }
+  }
 
   InputDecoration buildInputDecoration(String label, String hint) {
     return InputDecoration(
@@ -163,6 +221,7 @@ class _ConvertRatesScreenState extends State<ConvertRatesScreen> {
                                 height: 30,
                                 width: 100,
                                 child: TextFormField(
+                                  controller: youSendController,
                                   autofocus: true,
                                   textAlign: TextAlign.center,
                                   keyboardType: TextInputType.number,
@@ -232,6 +291,7 @@ class _ConvertRatesScreenState extends State<ConvertRatesScreen> {
                                 height: 30,
                                 width: 100,
                                 child: TextFormField(
+                                  controller: youReceiveController,
                                   textAlign: TextAlign.center,
                                   keyboardType: TextInputType.number,
                                   style: TextStyle(
@@ -264,7 +324,7 @@ class _ConvertRatesScreenState extends State<ConvertRatesScreen> {
                         child: Align(
                           alignment: Alignment.center,
                           child: Text(
-                            "Exchange Rate 1 USD = 0.798 GBP",
+                            "Exchange Rate 1 $from_country_currency_code = $conversionRate",
                             style: TextStyle(
                               color: app_color,
                               fontSize: 15,
@@ -307,7 +367,7 @@ class _ConvertRatesScreenState extends State<ConvertRatesScreen> {
                                         fontFamily: 'UbuntuBold',
                                       ),
                                       ),
-                                      trailing: Text('375.99 GBP',
+                                      trailing: Text("$youReceiveAmount",
                                         style: TextStyle(
                                           color: Colors.grey,
                                           fontSize: 14,
@@ -343,7 +403,7 @@ class _ConvertRatesScreenState extends State<ConvertRatesScreen> {
                                         fontFamily: 'UbuntuBold',
                                       ),
                                     ),
-                                    trailing: Text('469.46 USD',
+                                    trailing: Text("$youSendAmount",
                                       style: TextStyle(
                                         color: Colors.grey,
                                         fontSize: 14,
@@ -379,7 +439,7 @@ class _ConvertRatesScreenState extends State<ConvertRatesScreen> {
                                         fontFamily: 'UbuntuBold',
                                       ),
                                     ),
-                                    trailing: Text('23.47 USD',
+                                    trailing: Text("$fees",
                                       style: TextStyle(
                                         color: Colors.grey,
                                         fontSize: 14,
@@ -409,7 +469,7 @@ class _ConvertRatesScreenState extends State<ConvertRatesScreen> {
                                         fontFamily: 'UbuntuBold',
                                       ),
                                     ),
-                                    trailing: Text('492.93 USD',
+                                    trailing: Text("$totalToPay",
                                       style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 14,
@@ -435,10 +495,7 @@ class _ConvertRatesScreenState extends State<ConvertRatesScreen> {
                         child: ElevatedButton.icon(
                           icon: Icon(Icons.send),
                           onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => SelectRecipientScreen()),
-                            );
+                            _onContinuePressed();
                           },
                           label: Text('Continue',
                             textAlign: TextAlign.center,
