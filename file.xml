@@ -1,0 +1,2160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FragmentPersonalLoanApplication"
+    android:background="@color/app_backgrond"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:textStyle="normal"
+                        android:textColor="@color/app_green"
+                        android:layout_marginStart="3dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Select insurance type"
+                        android:textSize="18sp"
+                        android:fontFamily="sans-serif-medium"
+                        android:layout_marginBottom="8dp"/>
+
+                    <RelativeLayout
+                        android:background="@drawable/white_curved_border_background"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <Spinner
+                            android:entries="@array/insurance_coverage_types"
+                            android:elevation="10dp"
+                            android:backgroundTint="@color/dark_gray"
+                            android:id="@+id/txtInsuranceType"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:gravity="center_vertical" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:textStyle="bold"
+                        android:textColor="@color/purple_500"
+                        android:layout_marginStart="3dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="1. Customer details"
+                        android:textSize="20sp"
+                        android:fontFamily="sans-serif-black"
+                        android:layout_marginBottom="18dp"/>
+                    <!-- Title -->
+                    <TextView
+                        android:textStyle="normal"
+                        android:textColor="@color/app_green"
+                        android:layout_marginStart="3dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="What is your title?"
+                        android:textSize="18sp"
+                        android:fontFamily="sans-serif-medium"
+                        android:layout_marginBottom="8dp"/>
+
+                    <RelativeLayout
+                        android:background="@drawable/white_curved_border_background"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <Spinner
+                            android:entries="@array/titles"
+                            android:elevation="10dp"
+                            android:backgroundTint="@color/dark_gray"
+                            android:id="@+id/txtTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:gravity="center_vertical" />
+                    </RelativeLayout>
+
+                    <!-- Name -->
+                    <TextView
+                        android:textStyle="normal"
+                        android:textColor="@color/app_green"
+                        android:layout_marginStart="3dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Fullname"
+                        android:textSize="18sp"
+                        android:fontFamily="sans-serif-medium"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="8dp"/>
+
+                    <EditText
+                        android:hint="[Surname] [Middle name] [First name]"
+                        android:id="@+id/txtName"
+                        android:textColorHint="@color/icon_tint"
+                        android:backgroundTint="@color/icon_tint"
+                        android:textColor="@color/purple_500"
+                        android:textSize="18sp"
+                        android:fontFamily="sans-serif-medium"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:imeOptions="actionNext"
+                        android:inputType="text"/>
+
+                    <!-- DOB -->
+                    <TextView
+                        android:textStyle="normal"
+                        android:textColor="@color/app_green"
+                        android:layout_marginStart="3dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Date of birth"
+                        android:textSize="18sp"
+                        android:fontFamily="sans-serif-medium"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="8dp"/>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/btnDateOfBirth"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/dropdownListPreferredItemHeight"
+                        android:background="@drawable/white_curved_border_background"
+                        android:paddingStart="6dp"
+                        android:elevation="10dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent">
+
+                        <TextView
+                            android:id="@+id/txtDateOfBirth"
+                            android:layout_marginStart="10dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:fontFamily="sans-serif-medium"
+                            android:textColor="@color/icon_tint"
+                            android:layout_width="match_parent"
+                            android:textSize="18sp"
+                            android:text="Select date"
+                            android:layout_height="wrap_content"/>
+                        <ImageView
+
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:padding="10dp"
+                            android:src="@drawable/ic_calendar"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:tint="@color/app_green" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <!-- Gender -->
+                    <LinearLayout
+                        android:layout_marginTop="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:textStyle="normal"
+                            android:textColor="@color/app_green"
+                            android:layout_marginStart="3dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/select_gender"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_marginBottom="8dp"/>
+                        <RadioGroup
+
+                            android:id="@+id/txtGender"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <RadioButton
+                                android:id="@+id/Male"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="18sp"
+                                android:fontFamily="sans-serif-medium"
+                                android:textColor="@color/icon_tint"
+                                android:text="@string/male"
+                                android:layout_marginEnd="20dp"/>
+                            <RadioButton
+                                android:id="@+id/Female"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="18sp"
+                                android:fontFamily="sans-serif-medium"
+                                android:textColor="@color/icon_tint"
+                                android:text="@string/female"/>
+                        </RadioGroup>
+                    </LinearLayout>
+
+                    <!-- ID Number -->
+                    <TextView
+                        android:textStyle="normal"
+                        android:textColor="@color/app_green"
+                        android:layout_marginStart="3dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ID Number"
+                        android:textSize="18sp"
+                        android:fontFamily="sans-serif-medium"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="8dp"/>
+
+                    <!-- Marital Status -->
+                    <EditText
+                        android:id="@+id/txtNationalIdNumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/icon_tint"
+                        android:fontFamily="sans-serif-medium"
+                        android:hint="@string/national_id_number"
+                        android:imeOptions="actionNext"
+                        android:inputType="numberSigned"
+                        android:textColor="@color/purple_500"
+                        android:textColorHint="@color/icon_tint"
+                        android:textSize="18sp" />
+
+                    <TextView
+
+                        android:textStyle="normal"
+                        android:textColor="@color/app_green"
+                        android:layout_marginStart="3dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Marital Status"
+                        android:textSize="18sp"
+                        android:fontFamily="sans-serif-medium"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="8dp"/>
+
+                    <RelativeLayout
+                        android:background="@drawable/white_curved_border_background"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <Spinner
+                            android:entries="@array/marital_status"
+                            android:elevation="10dp"
+                            android:backgroundTint="@color/dark_gray"
+                            android:id="@+id/txtMaritalStatus"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:gravity="center_vertical" />
+                    </RelativeLayout>
+
+                    <!-- Number of Dependents -->
+                    <LinearLayout
+                        android:layout_marginTop="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Number of dependants"
+                            android:textSize="18sp"
+                            android:textColor="@color/app_green"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_marginBottom="8dp" />
+
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <EditText
+                                android:id="@+id/txtNoDependantsAbove18Years"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:hint="Below 18 Years"
+                                android:textSize="18sp"
+                                android:inputType="numberSigned"
+                                android:maxLines="1"
+                                android:imeOptions="actionNext"
+                                android:backgroundTint="@color/icon_tint"
+                                android:textColor="@color/purple_500"
+                                android:textColorHint="@color/icon_tint"
+                                android:fontFamily="sans-serif-medium" />
+                            <EditText
+                                android:imeOptions="actionNext"
+                                android:id="@+id/txtNoDependantsBelow18Years"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:hint="Above 18 Years"
+                                android:textSize="18sp"
+                                android:inputType="numberSigned"
+                                android:maxLines="1"
+                                android:backgroundTint="@color/icon_tint"
+                                android:textColor="@color/purple_500"
+                                android:textColorHint="@color/icon_tint"
+                                android:fontFamily="sans-serif-medium" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:textStyle="normal"
+                            android:textColor="@color/app_green"
+                            android:layout_marginStart="3dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Will your Dependents be included in your Insurance Coverage? (only for Health insurance)"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginBottom="8dp"/>
+
+                        <RadioGroup
+                            android:id="@+id/radioGroupIncludeDependents"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <RadioButton
+                                android:id="@+id/radioIncludeDependentsYes"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="18sp"
+                                android:fontFamily="sans-serif-medium"
+                                android:textColor="@color/icon_tint"
+                                android:text="@string/yes"
+                                android:layout_marginEnd="20dp"/>
+                            <RadioButton
+                                android:id="@+id/radioIncludeDependentsNo"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="18sp"
+                                android:fontFamily="sans-serif-medium"
+                                android:textColor="@color/icon_tint"
+                                android:text="@string/no"/>
+
+                        </RadioGroup>
+
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_marginTop="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:textStyle="bold"
+                            android:textColor="@color/purple_500"
+                            android:layout_marginStart="3dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="2. Contact Details"
+                            android:textSize="20sp"
+                            android:fontFamily="sans-serif-black"
+                            android:layout_marginBottom="18dp" />
+                        <TextView
+                            android:textStyle="bold"
+                            android:textColor="@color/purple_500"
+                            android:layout_marginStart="3dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="2.1. You"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-black"
+                            android:layout_marginBottom="18dp" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Mobile number"
+                            android:textSize="18sp"
+                            android:textColor="@color/app_green"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_marginBottom="8dp" />
+
+                        <!-- Mobile Number -->
+                        <EditText
+                            android:id="@+id/txtMobileNumber"
+                            android:textColorHint="@color/icon_tint"
+                            android:backgroundTint="@color/icon_tint"
+                            android:textColor="@color/purple_500"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionNext"
+                            android:hint="@string/format_07xxxxxxxx_or_01xxxxxxxx"
+                            android:inputType="phone" />
+                        <TextView
+                            android:layout_marginTop="20dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Alternate mobile number"
+                            android:textSize="18sp"
+                            android:textColor="@color/app_green"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_marginBottom="8dp" />
+                        <!-- Alternate Mobile Number -->
+                        <EditText
+                            android:id="@+id/txtAlternateMobileNumber"
+                            android:textColorHint="@color/icon_tint"
+                            android:backgroundTint="@color/icon_tint"
+                            android:textColor="@color/purple_500"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionNext"
+                            android:hint="@string/format_07xxxxxxxx_or_01xxxxxxxx"
+                            android:inputType="phone" />
+                        <TextView
+                            android:layout_marginTop="20dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Email address"
+                            android:textSize="18sp"
+                            android:textColor="@color/app_green"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_marginBottom="8dp" />
+                        <!-- Email Address -->
+                        <EditText
+                            android:id="@+id/txtEmailAddress"
+                            android:textColorHint="@color/icon_tint"
+                            android:backgroundTint="@color/icon_tint"
+                            android:textColor="@color/purple_500"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionNext"
+                            android:hint="someone@email.com"
+                            android:inputType="textEmailAddress" />
+
+
+                        <!-- Postal Address -->
+                        <TextView
+                            android:layout_marginTop="20dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Postal address"
+                            android:textSize="18sp"
+                            android:textColor="@color/app_green"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_marginBottom="8dp" />
+                        <EditText
+                            android:id="@+id/txtPostalAddress"
+                            android:textColorHint="@color/icon_tint"
+                            android:backgroundTint="@color/icon_tint"
+                            android:textColor="@color/purple_500"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionNext"
+                            android:hint="P.O. BOX XXXX-00XXX, Location"
+                            android:inputType="text" />
+
+
+                        <TextView
+                            android:layout_marginTop="20dp"
+                            android:textStyle="bold"
+                            android:textColor="@color/purple_500"
+                            android:layout_marginStart="3dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="2.2. Next of kin"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-black"
+                            android:layout_marginBottom="18dp" />
+
+                        <TextView
+                            android:textStyle="normal"
+                            android:textColor="@color/app_green"
+                            android:layout_marginStart="3dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Fullname"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_marginBottom="8dp"/>
+
+                        <EditText
+                            android:hint="[Surname] [Middle name] [First name]"
+                            android:id="@+id/txtNextKinName"
+                            android:textColorHint="@color/icon_tint"
+                            android:backgroundTint="@color/icon_tint"
+                            android:textColor="@color/purple_500"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionNext"
+                            android:inputType="text"/>
+                        <TextView
+                            android:layout_marginTop="20dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Mobile number"
+                            android:textSize="18sp"
+                            android:textColor="@color/app_green"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_marginBottom="8dp" />
+
+                        <!-- Mobile Number -->
+                        <EditText
+                            android:id="@+id/txtNextKinMobileNumber"
+                            android:textColorHint="@color/icon_tint"
+                            android:backgroundTint="@color/icon_tint"
+                            android:textColor="@color/purple_500"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionNext"
+                            android:hint="@string/format_07xxxxxxxx_or_01xxxxxxxx"
+                            android:inputType="phone" />
+                        <TextView
+                            android:layout_marginTop="20dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Alternate mobile number"
+                            android:textSize="18sp"
+                            android:textColor="@color/app_green"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_marginBottom="8dp" />
+                        <!-- Alternate Mobile Number -->
+                        <EditText
+                            android:id="@+id/txtNextKinAlternateMobileNumber"
+                            android:textColorHint="@color/icon_tint"
+                            android:backgroundTint="@color/icon_tint"
+                            android:textColor="@color/purple_500"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionNext"
+                            android:hint="@string/format_07xxxxxxxx_or_01xxxxxxxx"
+                            android:inputType="phone" />
+                        <TextView
+                            android:layout_marginTop="20dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Email address"
+                            android:textSize="18sp"
+                            android:textColor="@color/app_green"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_marginBottom="8dp" />
+                        <!-- Email Address -->
+                        <EditText
+                            android:id="@+id/txtNextKinEmailAddress"
+                            android:textColorHint="@color/icon_tint"
+                            android:backgroundTint="@color/icon_tint"
+                            android:textColor="@color/purple_500"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionNext"
+                            android:hint="someone@email.com"
+                            android:inputType="textEmailAddress" />
+                        <!-- County of Residence (Drop Down Menu) -->
+                        <TextView
+                            android:textStyle="normal"
+                            android:textColor="@color/app_green"
+                            android:layout_marginStart="3dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Select county of residence"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginBottom="8dp" />
+                        <RelativeLayout
+                            android:background="@drawable/white_curved_border_background"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <Spinner
+                                android:entries="@array/counties"
+                                android:id="@+id/txtNextKinCountyOfResidence"
+                                android:elevation="10dp"
+                                android:backgroundTint="@color/dark_gray"
+                                android:layout_width="match_parent"
+                                android:layout_height="45dp"
+                                android:gravity="center_vertical" />
+                        </RelativeLayout>
+                        <!-- Postal Address -->
+                        <TextView
+                            android:layout_marginTop="20dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Postal address"
+                            android:textSize="18sp"
+                            android:textColor="@color/app_green"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_marginBottom="8dp" />
+                        <EditText
+                            android:id="@+id/txtNextKinPostalAddress"
+                            android:textColorHint="@color/icon_tint"
+                            android:backgroundTint="@color/icon_tint"
+                            android:textColor="@color/purple_500"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionNext"
+                            android:hint="P.O. BOX XXXX-00XXX, Location"
+                            android:inputType="text" />
+                        <!-- Relationship -->
+                        <TextView
+                            android:layout_marginTop="20dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Relationship with next of kin"
+                            android:textSize="18sp"
+                            android:textColor="@color/app_green"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_marginBottom="8dp" />
+                        <EditText
+                            android:id="@+id/txtNextKinRelationship"
+                            android:textColorHint="@color/icon_tint"
+                            android:backgroundTint="@color/icon_tint"
+                            android:textColor="@color/purple_500"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionNext"
+                            android:hint="Eg. Mother, Father"
+                            android:inputType="text" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_marginTop="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:textStyle="bold"
+                            android:textColor="@color/purple_500"
+                            android:layout_marginStart="3dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="3. Residential Details"
+                            android:textSize="20sp"
+                            android:fontFamily="sans-serif-black"
+                            android:layout_marginBottom="18dp" />
+
+                        <!-- County of Residence (Drop Down Menu) -->
+                        <TextView
+                            android:textStyle="normal"
+                            android:textColor="@color/app_green"
+                            android:layout_marginStart="3dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Select county of residence"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginBottom="8dp" />
+                        <RelativeLayout
+                            android:background="@drawable/white_curved_border_background"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <Spinner
+                                android:entries="@array/counties"
+                                android:id="@+id/txtCountyOfResidence"
+                                android:elevation="10dp"
+                                android:backgroundTint="@color/dark_gray"
+                                android:layout_width="match_parent"
+                                android:layout_height="45dp"
+                                android:gravity="center_vertical" />
+                        </RelativeLayout>
+
+                        <!-- Is your current residence? -->
+                        <TextView
+                            android:textStyle="normal"
+                            android:textColor="@color/app_green"
+                            android:layout_marginStart="3dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Is your current residence?"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginBottom="8dp" />
+
+                        <RelativeLayout
+                            android:background="@drawable/white_curved_border_background"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <Spinner
+                                android:entries="@array/current_residences"
+                                android:id="@+id/txtIsYourCurrentResidence"
+                                android:elevation="10dp"
+                                android:backgroundTint="@color/dark_gray"
+                                android:layout_width="match_parent"
+                                android:layout_height="45dp"
+                                android:gravity="center_vertical" />
+                        </RelativeLayout>
+
+                        <!-- Physical Address of your Residence -->
+                        <TextView
+                            android:textStyle="normal"
+                            android:textColor="@color/app_green"
+                            android:layout_marginStart="3dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Physical Address of your Residence"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginBottom="8dp" />
+                        <EditText
+                            android:id="@+id/txtPhysicalAddress"
+                            android:textColorHint="@color/icon_tint"
+                            android:backgroundTint="@color/icon_tint"
+                            android:textColor="@color/purple_500"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionNext"
+                            android:hint="Physical Address of your Residence"
+                            android:inputType="text" />
+
+                        <!-- Nearest Landmark -->
+                        <TextView
+                            android:textStyle="normal"
+                            android:textColor="@color/app_green"
+                            android:layout_marginStart="3dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Nearest Landmark"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginBottom="8dp" />
+                        <EditText
+                            android:id="@+id/txtNearestLandmark"
+                            android:textColorHint="@color/icon_tint"
+                            android:backgroundTint="@color/icon_tint"
+                            android:textColor="@color/purple_500"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionNext"
+                            android:hint="Nearest Landmark"
+                            android:inputType="text" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_marginTop="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:textStyle="bold"
+                            android:textColor="@color/purple_500"
+                            android:layout_marginStart="3dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="4. Education Level"
+                            android:textSize="20sp"
+                            android:fontFamily="sans-serif-black"
+                            android:layout_marginBottom="18dp" />
+
+                        <!-- Education Level -->
+                        <RelativeLayout
+                            android:background="@drawable/white_curved_border_background"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <Spinner
+                                android:entries="@array/education_level"
+                                android:id="@+id/txtEducationLevel"
+                                android:elevation="10dp"
+                                android:backgroundTint="@color/dark_gray"
+                                android:layout_width="match_parent"
+                                android:layout_height="45dp"
+                                android:gravity="center_vertical" />
+                        </RelativeLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_marginTop="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:textStyle="bold"
+                            android:textColor="@color/purple_500"
+                            android:layout_marginStart="3dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="5. Employment Details"
+                            android:textSize="20sp"
+                            android:fontFamily="sans-serif-black"
+                            android:layout_marginBottom="18dp" />
+
+                        <!-- Employment Status -->
+                        <RelativeLayout
+                            android:background="@drawable/white_curved_border_background"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <Spinner
+                                android:entries="@array/employment_status"
+                                android:id="@+id/txtEmploymentStatus"
+                                android:elevation="10dp"
+                                android:backgroundTint="@color/dark_gray"
+                                android:layout_width="match_parent"
+                                android:layout_height="45dp"
+                                android:gravity="center_vertical" />
+                        </RelativeLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:visibility="gone"
+                        android:layout_marginTop="20dp"
+                        android:id="@+id/layout_self_employed"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <!-- Name of Business -->
+                        <TextView
+                            android:textStyle="normal"
+                            android:textColor="@color/app_green"
+                            android:layout_marginStart="3dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Name of Business"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_marginBottom="8dp"/>
+
+                        <EditText
+                            android:id="@+id/txtBusinessName"
+                            android:hint="Enter the name of your business"
+                            android:textColorHint="@color/icon_tint"
+                            android:backgroundTint="@color/icon_tint"
+                            android:textColor="@color/purple_500"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionNext"
+                            android:inputType="text"/>
+
+                        <!-- Type of Business -->
+                        <TextView
+                            android:textStyle="normal"
+                            android:textColor="@color/app_green"
+                            android:layout_marginStart="3dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Type of Business"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginBottom="8dp"/>
+
+                        <EditText
+                            android:id="@+id/txtBusinessType"
+                            android:hint="Enter the type of your business"
+                            android:textColorHint="@color/icon_tint"
+                            android:backgroundTint="@color/icon_tint"
+                            android:textColor="@color/purple_500"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionNext"
+                            android:inputType="text"/>
+
+                        <!-- Physical Location of Business -->
+                        <TextView
+                            android:textStyle="normal"
+                            android:textColor="@color/app_green"
+                            android:layout_marginStart="3dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Physical Location of Business"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginBottom="8dp"/>
+
+                        <EditText
+                            android:id="@+id/txtBusinessLocation"
+                            android:hint="Enter the physical location of your business"
+                            android:textColorHint="@color/icon_tint"
+                            android:backgroundTint="@color/icon_tint"
+                            android:textColor="@color/purple_500"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionNext"
+                            android:inputType="text"/>
+
+                        <!-- What is your role in the business? -->
+                        <TextView
+                            android:textStyle="normal"
+                            android:textColor="@color/app_green"
+                            android:layout_marginStart="3dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="What is your role in the business?"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginBottom="8dp"/>
+
+                        <EditText
+                            android:id="@+id/txtBusinessRole"
+                            android:hint="Enter your role in the business"
+                            android:textColorHint="@color/icon_tint"
+                            android:backgroundTint="@color/icon_tint"
+                            android:textColor="@color/purple_500"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionNext"
+                            android:inputType="text"/>
+
+                        <!-- Which Year did your business start? -->
+                        <TextView
+                            android:textStyle="normal"
+                            android:textColor="@color/app_green"
+                            android:layout_marginStart="3dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Which Year did your business start?"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginBottom="8dp"/>
+
+                        <EditText
+                            android:id="@+id/txtBusinessStartYear"
+                            android:hint="Enter the year your business started"
+                            android:textColorHint="@color/icon_tint"
+                            android:backgroundTint="@color/icon_tint"
+                            android:textColor="@color/purple_500"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionNext"
+                            android:inputType="numberSigned"/>
+
+                        <!-- Number of years in operation -->
+                        <TextView
+                            android:textStyle="normal"
+                            android:textColor="@color/app_green"
+                            android:layout_marginStart="3dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Number of years in operation"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginBottom="8dp"/>
+
+                        <EditText
+                            android:id="@+id/txtYearsInOperation"
+                            android:hint="Enter the number of years in operation"
+                            android:textColorHint="@color/icon_tint"
+                            android:backgroundTint="@color/icon_tint"
+                            android:textColor="@color/purple_500"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionNext"
+                            android:inputType="numberSigned"/>
+
+                        <!-- Frequency of Income, Daily, Weekly, Monthly -->
+                        <TextView
+                            android:textStyle="normal"
+                            android:textColor="@color/app_green"
+                            android:layout_marginStart="3dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Frequency of Income"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginBottom="8dp"/>
+
+                        <RelativeLayout
+                            android:background="@drawable/white_curved_border_background"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <Spinner
+                                android:entries="@array/income_frequency"
+                                android:elevation="10dp"
+                                android:backgroundTint="@color/dark_gray"
+                                android:id="@+id/txtIncomeFrequency"
+                                android:layout_width="match_parent"
+                                android:layout_height="45dp"
+                                android:gravity="center_vertical" />
+                        </RelativeLayout>
+
+
+                        <!-- Estimated Income of the Business -->
+                        <TextView
+                            android:textStyle="normal"
+                            android:textColor="@color/app_green"
+                            android:layout_marginStart="3dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Estimated Income of the Business"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginBottom="8dp"/>
+
+                        <EditText
+                            android:id="@+id/txtBusinessIncome"
+                            android:hint="KES"
+                            android:textColorHint="@color/icon_tint"
+                            android:backgroundTint="@color/icon_tint"
+                            android:textColor="@color/purple_500"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionNext"
+                            android:inputType="numberSigned"/>
+
+                        <!-- Estimated Expenditure of the Business -->
+                        <TextView
+                            android:textStyle="normal"
+                            android:textColor="@color/app_green"
+                            android:layout_marginStart="3dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Estimated Expenditure of the Business"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginBottom="8dp"/>
+
+                        <EditText
+                            android:id="@+id/txtBusinessExpenditure"
+                            android:hint="KES"
+                            android:textColorHint="@color/icon_tint"
+                            android:backgroundTint="@color/icon_tint"
+                            android:textColor="@color/purple_500"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionNext"
+                            android:inputType="numberSigned"/>
+
+                        <!-- Personal Expenditure -->
+                        <TextView
+                            android:textStyle="normal"
+                            android:textColor="@color/app_green"
+                            android:layout_marginStart="3dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Personal Expenditure"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginBottom="8dp"/>
+
+                        <EditText
+                            android:id="@+id/txtPersonalExpenditure"
+                            android:hint="KES"
+                            android:textColorHint="@color/icon_tint"
+                            android:backgroundTint="@color/icon_tint"
+                            android:textColor="@color/purple_500"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionNext"
+                            android:inputType="numberSigned"/>
+
+                        <!-- Frequency of Savings Daily, Weekly, Monthly -->
+                        <TextView
+                            android:textStyle="normal"
+                            android:textColor="@color/app_green"
+                            android:layout_marginStart="3dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Frequency of Savings"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginBottom="8dp"/>
+
+                        <RelativeLayout
+                            android:background="@drawable/white_curved_border_background"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <Spinner
+                                android:entries="@array/savings_frequency"
+                                android:elevation="10dp"
+                                android:backgroundTint="@color/dark_gray"
+                                android:id="@+id/txtSavingsFrequency"
+                                android:layout_width="match_parent"
+                                android:layout_height="45dp"
+                                android:gravity="center_vertical" />
+                        </RelativeLayout>
+
+
+                        <!-- Estimated Savings -->
+                        <TextView
+                            android:textStyle="normal"
+                            android:textColor="@color/app_green"
+                            android:layout_marginStart="3dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Estimated Savings"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginBottom="8dp"/>
+
+                        <EditText
+                            android:id="@+id/txtEstimatedSavings"
+                            android:hint="KES"
+                            android:textColorHint="@color/icon_tint"
+                            android:backgroundTint="@color/icon_tint"
+                            android:textColor="@color/purple_500"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionNext"
+                            android:inputType="numberSigned"/>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:visibility="gone"
+                        android:id="@+id/layout_employed"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <!-- Name of Employer -->
+                        <TextView
+                            android:textStyle="normal"
+                            android:textColor="@color/app_green"
+                            android:layout_marginStart="3dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Name of Employer"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginBottom="8dp"/>
+
+                        <EditText
+                            android:id="@+id/txtEmployerName"
+                            android:hint="Enter the name of your employer"
+                            android:textColorHint="@color/icon_tint"
+                            android:backgroundTint="@color/icon_tint"
+                            android:textColor="@color/purple_500"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionNext"
+                            android:inputType="text"/>
+
+                        <!-- Type of Employer -->
+                        <TextView
+                            android:textStyle="normal"
+                            android:textColor="@color/app_green"
+                            android:layout_marginStart="3dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Type of Employer"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginBottom="8dp"/>
+
+
+                        <RelativeLayout
+                            android:background="@drawable/white_curved_border_background"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <Spinner
+                                android:entries="@array/employer_type"
+                                android:id="@+id/txtEmployerType"
+                                android:elevation="10dp"
+                                android:backgroundTint="@color/dark_gray"
+                                android:layout_width="match_parent"
+                                android:layout_height="45dp"
+                                android:gravity="center_vertical" />
+                        </RelativeLayout>
+
+                        <!-- Number of years with the employer -->
+                        <TextView
+                            android:textStyle="normal"
+                            android:textColor="@color/app_green"
+                            android:layout_marginStart="3dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Number of years with the employer"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginBottom="8dp"/>
+
+                        <EditText
+                            android:id="@+id/txtYearsWithEmployer"
+                            android:hint="No. years"
+                            android:textColorHint="@color/icon_tint"
+                            android:backgroundTint="@color/icon_tint"
+                            android:textColor="@color/purple_500"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionNext"
+                            android:inputType="numberSigned"/>
+
+                        <!-- Terms of employment -->
+                        <TextView
+                            android:textStyle="normal"
+                            android:textColor="@color/app_green"
+                            android:layout_marginStart="3dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Terms of employment"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginBottom="8dp"/>
+
+
+                        <RelativeLayout
+                            android:background="@drawable/white_curved_border_background"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <Spinner
+                                android:entries="@array/terms_of_employment"
+                                android:elevation="10dp"
+                                android:backgroundTint="@color/dark_gray"
+                                android:id="@+id/txtEmploymentTerms"
+                                android:layout_width="match_parent"
+                                android:layout_height="45dp"
+                                android:gravity="center_vertical" />
+                        </RelativeLayout>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:visibility="gone"
+                        android:id="@+id/layout_start_and_end_of_contract"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:textStyle="normal"
+                            android:textColor="@color/app_green"
+                            android:layout_marginStart="3dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Date of Appointment"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginBottom="8dp"/>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/btnDateOfAppointment"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:layout_width="match_parent"
+                            android:layout_height="?attr/dropdownListPreferredItemHeight"
+                            android:background="@drawable/white_curved_border_background"
+                            android:paddingStart="6dp"
+                            android:elevation="10dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent">
+
+                            <TextView
+                                android:id="@+id/txtDateOfAppointment"
+                                android:layout_marginStart="10dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                android:fontFamily="sans-serif-medium"
+                                android:textColor="@color/icon_tint"
+                                android:layout_width="match_parent"
+                                android:textSize="18sp"
+                                android:text="Select date"
+                                android:layout_height="wrap_content"/>
+                            <ImageView
+
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:padding="10dp"
+                                android:src="@drawable/ic_calendar"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:tint="@color/app_green" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <TextView
+                            android:textStyle="normal"
+                            android:textColor="@color/app_green"
+                            android:layout_marginStart="3dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Date of Termination"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginBottom="8dp"/>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/btnDateOfTermination"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:layout_width="match_parent"
+                            android:layout_height="?attr/dropdownListPreferredItemHeight"
+                            android:background="@drawable/white_curved_border_background"
+                            android:paddingStart="6dp"
+                            android:elevation="10dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent">
+
+                            <TextView
+                                android:id="@+id/txtDateOfTermination"
+                                android:layout_marginStart="10dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                android:fontFamily="sans-serif-medium"
+                                android:textColor="@color/icon_tint"
+                                android:layout_width="match_parent"
+                                android:textSize="18sp"
+                                android:text="Select date"
+                                android:layout_height="wrap_content"/>
+                            <ImageView
+
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:padding="10dp"
+                                android:src="@drawable/ic_calendar"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:tint="@color/app_green" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                        <LinearLayout
+                            android:visibility="gone"
+                            android:id="@+id/layout_paid_intern_others"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+                            <TextView
+                                android:textStyle="normal"
+                                android:textColor="@color/app_green"
+                                android:layout_marginStart="3dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Physical Address of your workplace"
+                                android:textSize="18sp"
+                                android:fontFamily="sans-serif-medium"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginBottom="8dp"/>
+
+                            <EditText
+                                android:id="@+id/txtWorkplaceAddress"
+                                android:hint="Enter the physical address of your workplace"
+                                android:textColorHint="@color/icon_tint"
+                                android:backgroundTint="@color/icon_tint"
+                                android:textColor="@color/purple_500"
+                                android:textSize="18sp"
+                                android:fontFamily="sans-serif-medium"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:imeOptions="actionNext"
+                                android:inputType="text"/>
+
+                            <!-- Office Telephone -->
+                            <TextView
+                                android:textStyle="normal"
+                                android:textColor="@color/app_green"
+                                android:layout_marginStart="3dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Office Telephone"
+                                android:textSize="18sp"
+                                android:fontFamily="sans-serif-medium"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginBottom="8dp"/>
+
+                            <EditText
+                                android:id="@+id/txtOfficeTelephone"
+                                android:hint="Enter your office telephone number"
+                                android:textColorHint="@color/icon_tint"
+                                android:backgroundTint="@color/icon_tint"
+                                android:textColor="@color/purple_500"
+                                android:textSize="18sp"
+                                android:fontFamily="sans-serif-medium"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:imeOptions="actionNext"
+                                android:inputType="numberSigned"/>
+
+                            <!-- Office Email -->
+                            <TextView
+                                android:textStyle="normal"
+                                android:textColor="@color/app_green"
+                                android:layout_marginStart="3dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Office Email"
+                                android:textSize="18sp"
+                                android:fontFamily="sans-serif-medium"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginBottom="8dp"/>
+
+                            <EditText
+                                android:id="@+id/txtOfficeEmail"
+                                android:hint="Enter your office email address"
+                                android:textColorHint="@color/icon_tint"
+                                android:backgroundTint="@color/icon_tint"
+                                android:textColor="@color/purple_500"
+                                android:textSize="18sp"
+                                android:fontFamily="sans-serif-medium"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:imeOptions="actionNext"
+                                android:inputType="textEmailAddress"/>
+
+                            <!-- Your position at your place of work -->
+                            <TextView
+                                android:textStyle="normal"
+                                android:textColor="@color/app_green"
+                                android:layout_marginStart="3dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Your position at your place of work"
+                                android:textSize="18sp"
+                                android:fontFamily="sans-serif-medium"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginBottom="8dp"/>
+
+                            <EditText
+                                android:id="@+id/txtYourPosition"
+                                android:hint="E.g. Manager, Developer, Hr etc"
+                                android:textColorHint="@color/icon_tint"
+                                android:backgroundTint="@color/icon_tint"
+                                android:textColor="@color/purple_500"
+                                android:textSize="18sp"
+                                android:fontFamily="sans-serif-medium"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:imeOptions="actionNext"
+                                android:inputType="text"/>
+
+                            <!-- Office Department you Work under -->
+                            <TextView
+                                android:textStyle="normal"
+                                android:textColor="@color/app_green"
+                                android:layout_marginStart="3dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Office Department you Work under"
+                                android:textSize="18sp"
+                                android:fontFamily="sans-serif-medium"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginBottom="8dp"/>
+
+                            <EditText
+                                android:id="@+id/txtOfficeDepartment"
+                                android:hint="E.g. Sales, Finance etc"
+                                android:textColorHint="@color/icon_tint"
+                                android:backgroundTint="@color/icon_tint"
+                                android:textColor="@color/purple_500"
+                                android:textSize="18sp"
+                                android:fontFamily="sans-serif-medium"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:imeOptions="actionNext"
+                                android:inputType="text"/>
+
+                            <!-- Current Salary per month -->
+                            <TextView
+                                android:textStyle="normal"
+                                android:textColor="@color/app_green"
+                                android:layout_marginStart="3dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Current Salary per month"
+                                android:textSize="18sp"
+                                android:fontFamily="sans-serif-medium"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginBottom="8dp"/>
+
+                            <EditText
+                                android:id="@+id/txtCurrentSalary"
+                                android:hint="KES"
+                                android:textColorHint="@color/icon_tint"
+                                android:backgroundTint="@color/icon_tint"
+                                android:textColor="@color/purple_500"
+                                android:textSize="18sp"
+                                android:fontFamily="sans-serif-medium"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:imeOptions="actionNext"
+                                android:inputType="numberSigned"/>
+
+
+
+                            <!-- _ of every Month -->
+                            <TextView
+                                android:textStyle="normal"
+                                android:textColor="@color/app_green"
+                                android:layout_marginStart="3dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Day of the month when salary is received (e.g., 15)"
+                                android:textSize="18sp"
+                                android:fontFamily="sans-serif-medium"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginBottom="8dp"/>
+
+                            <EditText
+                                android:id="@+id/txtSalaryDayOfMonth"
+                                android:hint="Day"
+                                android:textColorHint="@color/icon_tint"
+                                android:backgroundTint="@color/icon_tint"
+                                android:textColor="@color/purple_500"
+                                android:textSize="18sp"
+                                android:fontFamily="sans-serif-medium"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:imeOptions="actionNext"
+                                android:inputType="numberSigned"/>
+
+                            <!-- Monthly Expenditure -->
+                            <TextView
+                                android:textStyle="normal"
+                                android:textColor="@color/app_green"
+                                android:layout_marginStart="3dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Monthly Expenditure"
+                                android:textSize="18sp"
+                                android:fontFamily="sans-serif-medium"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginBottom="8dp"/>
+
+                            <EditText
+                                android:id="@+id/txtMonthlyExpenditure"
+                                android:hint="KES"
+                                android:textColorHint="@color/icon_tint"
+                                android:backgroundTint="@color/icon_tint"
+                                android:textColor="@color/purple_500"
+                                android:textSize="18sp"
+                                android:fontFamily="sans-serif-medium"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:imeOptions="actionNext"
+                                android:inputType="numberSigned"/>
+
+                            <!-- Monthly Savings -->
+                            <TextView
+                                android:textStyle="normal"
+                                android:textColor="@color/app_green"
+                                android:layout_marginStart="3dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Monthly Savings"
+                                android:textSize="18sp"
+                                android:fontFamily="sans-serif-medium"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginBottom="8dp"/>
+
+                            <EditText
+                                android:id="@+id/txtMonthlySavings"
+                                android:hint="KES"
+                                android:textColorHint="@color/icon_tint"
+                                android:backgroundTint="@color/icon_tint"
+                                android:textColor="@color/purple_500"
+                                android:textSize="18sp"
+                                android:fontFamily="sans-serif-medium"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:imeOptions="actionNext"
+                                android:inputType="numberSigned"/>
+
+                            <!-- Estimated Annual salary minus expenditure -->
+                            <TextView
+                                android:textStyle="normal"
+                                android:textColor="@color/app_green"
+                                android:layout_marginStart="3dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Estimated Annual salary minus expenditure"
+                                android:textSize="18sp"
+                                android:fontFamily="sans-serif-medium"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginBottom="8dp"/>
+
+                            <EditText
+                                android:id="@+id/txtAnnualSalaryMinusExpenditure"
+                                android:hint="KES"
+                                android:textColorHint="@color/icon_tint"
+                                android:backgroundTint="@color/icon_tint"
+                                android:textColor="@color/purple_500"
+                                android:textSize="18sp"
+                                android:fontFamily="sans-serif-medium"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:imeOptions="actionNext"
+                                android:inputType="numberSigned"/>
+
+                            <!-- Other Sources of Income except for salary -->
+                            <TextView
+                                android:textStyle="normal"
+                                android:textColor="@color/app_green"
+                                android:layout_marginStart="3dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Other Sources of Income except for salary"
+                                android:textSize="18sp"
+                                android:fontFamily="sans-serif-medium"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginBottom="8dp"/>
+
+                            <RelativeLayout
+                                android:background="@drawable/white_curved_border_background"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <Spinner
+                                    android:id="@+id/txtOtherSourcesOfIncome"
+                                    android:entries="@array/other_sources_of_income"
+                                    android:elevation="10dp"
+                                    android:backgroundTint="@color/dark_gray"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="45dp"
+                                    android:gravity="center_vertical" />
+                            </RelativeLayout>
+
+                            <!-- Estimated Income -->
+                            <TextView
+                                android:textStyle="normal"
+                                android:textColor="@color/app_green"
+                                android:layout_marginStart="3dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Estimated Income"
+                                android:textSize="18sp"
+                                android:fontFamily="sans-serif-medium"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginBottom="8dp"/>
+
+                            <EditText
+                                android:id="@+id/txtEstimatedIncome"
+                                android:hint="KES"
+                                android:textColorHint="@color/icon_tint"
+                                android:backgroundTint="@color/icon_tint"
+                                android:textColor="@color/purple_500"
+                                android:textSize="18sp"
+                                android:fontFamily="sans-serif-medium"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:imeOptions="actionNext"
+                                android:inputType="numberSigned"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:visibility="gone"
+                        android:layout_marginTop="0dp"
+                        android:id="@+id/layout_others"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:textStyle="normal"
+                            android:textColor="@color/app_green"
+                            android:layout_marginStart="3dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Sources of income"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginBottom="8dp"/>
+
+                        <RelativeLayout
+                            android:background="@drawable/white_curved_border_background"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <Spinner
+                                android:id="@+id/txtSourcesOfIncome"
+                                android:entries="@array/sources_of_income"
+                                android:elevation="10dp"
+                                android:backgroundTint="@color/dark_gray"
+                                android:layout_width="match_parent"
+                                android:layout_height="45dp"
+                                android:gravity="center_vertical" />
+                        </RelativeLayout>
+
+                        <!-- Income Amount in Ksh -->
+                        <TextView
+                            android:textStyle="normal"
+                            android:textColor="@color/app_green"
+                            android:layout_marginStart="3dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Income Amount"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginBottom="8dp"/>
+
+                        <EditText
+                            android:id="@+id/txtIncomeAmount"
+                            android:hint="KES"
+                            android:textColorHint="@color/icon_tint"
+                            android:backgroundTint="@color/icon_tint"
+                            android:textColor="@color/purple_500"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionNext"
+                            android:inputType="numberSigned"/>
+
+                        <!-- Frequency of Income -->
+                        <TextView
+                            android:textStyle="normal"
+                            android:textColor="@color/app_green"
+                            android:layout_marginStart="3dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Frequency of Income"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginBottom="8dp"/>
+
+                        <RelativeLayout
+                            android:background="@drawable/white_curved_border_background"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <Spinner
+                                android:id="@+id/txtFrequencyOfIncome"
+                                android:entries="@array/frequency_of_income"
+                                android:elevation="10dp"
+                                android:backgroundTint="@color/dark_gray"
+                                android:layout_width="match_parent"
+                                android:layout_height="45dp"
+                                android:gravity="center_vertical" />
+                        </RelativeLayout>
+
+                        <!-- Estimated Annual Source of Income -->
+                        <TextView
+                            android:textStyle="normal"
+                            android:textColor="@color/app_green"
+                            android:layout_marginStart="3dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Estimated Annual Source of Income"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginBottom="8dp"/>
+
+                        <EditText
+                            android:id="@+id/txtEstimatedAnnualIncome"
+                            android:hint="KES"
+                            android:textColorHint="@color/icon_tint"
+                            android:backgroundTint="@color/icon_tint"
+                            android:textColor="@color/purple_500"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionNext"
+                            android:inputType="numberSigned"/>
+
+                        <!-- Date when income is received -->
+                        <TextView
+                            android:textStyle="normal"
+                            android:textColor="@color/app_green"
+                            android:layout_marginStart="3dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Date when income is received"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginBottom="8dp"/>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/btnIncomeReceivedDate"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:layout_width="match_parent"
+                            android:layout_height="?attr/dropdownListPreferredItemHeight"
+                            android:background="@drawable/white_curved_border_background"
+                            android:paddingStart="6dp"
+                            android:elevation="10dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent">
+
+                            <TextView
+                                android:id="@+id/txtIncomeReceivedDate"
+                                android:layout_marginStart="10dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                android:fontFamily="sans-serif-medium"
+                                android:textColor="@color/icon_tint"
+                                android:layout_width="match_parent"
+                                android:textSize="18sp"
+                                android:text="Select date"
+                                android:layout_height="wrap_content"/>
+
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:padding="10dp"
+                                android:src="@drawable/ic_calendar"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:tint="@color/app_green" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_marginTop="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:textStyle="bold"
+                                android:textColor="@color/purple_500"
+                                android:layout_marginStart="3dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="6. Insurance Details"
+                                android:textSize="20sp"
+                                android:fontFamily="sans-serif-black"
+                                android:layout_marginBottom="18dp" />
+                            <TextView
+                                android:textStyle="normal"
+                                android:textColor="@color/app_green"
+                                android:layout_marginStart="3dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/name_of_insurance_provider"
+                                android:textSize="18sp"
+                                android:fontFamily="sans-serif-medium"
+                                android:layout_marginBottom="8dp"/>
+                            <EditText
+                                android:id="@+id/txtInsuranceProviderName"
+                                android:textColorHint="@color/icon_tint"
+                                android:backgroundTint="@color/icon_tint"
+                                android:textColor="@color/purple_500"
+                                android:textSize="18sp"
+                                android:fontFamily="sans-serif-medium"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:imeOptions="actionNext"
+                                android:hint="@string/e_g_nhif"
+                                android:inputType="text"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_marginTop="20dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:textStyle="normal"
+                                android:textColor="@color/app_green"
+                                android:layout_marginStart="3dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/name_of_coverage_plan"
+                                android:textSize="18sp"
+                                android:fontFamily="sans-serif-medium"
+                                android:layout_marginBottom="8dp"/>
+                            <EditText
+                                android:id="@+id/txtInsuranceCoverName"
+                                android:textColorHint="@color/icon_tint"
+                                android:backgroundTint="@color/icon_tint"
+                                android:textColor="@color/purple_500"
+                                android:textSize="18sp"
+                                android:fontFamily="sans-serif-medium"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:imeOptions="actionNext"
+                                android:hint="@string/e_g_self_employed"
+                                android:inputType="text"/>
+                        </LinearLayout>
+                        <TextView
+                            android:textStyle="normal"
+                            android:textColor="@color/app_green"
+                            android:layout_marginStart="3dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="How much is the Coverage Plan?"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginBottom="8dp" />
+                        <EditText
+                            android:hint="KES"
+                            android:id="@+id/txtCoveragePlanAmount"
+                            android:textColorHint="@color/icon_tint"
+                            android:backgroundTint="@color/icon_tint"
+                            android:textColor="@color/purple_500"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionNext"
+                            android:inputType="numberSigned" />
+
+
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_marginTop="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:textStyle="bold"
+                            android:textColor="@color/purple_500"
+                            android:layout_marginStart="3dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="7. Loan Details"
+                            android:textSize="20sp"
+                            android:fontFamily="sans-serif-black"
+                            android:layout_marginBottom="18dp" />
+
+
+                        <TextView
+                            android:textStyle="normal"
+                            android:textColor="@color/app_green"
+                            android:layout_marginStart="3dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Type of Loan"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_marginBottom="8dp" />
+                        <!-- Layout for the Spinner -->
+                        <RelativeLayout
+                            android:background="@drawable/white_curved_border_background"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <Spinner
+                                android:entries="@array/loan_types"
+                                android:elevation="10dp"
+                                android:backgroundTint="@color/dark_gray"
+                                android:id="@+id/txtLoanType"
+                                android:layout_width="match_parent"
+                                android:layout_height="45dp"
+                                android:gravity="center_vertical" />
+                        </RelativeLayout>
+                        <LinearLayout
+                            android:visibility="gone"
+                            android:id="@+id/layout_topup_loan_options"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+                            <TextView
+                                android:textStyle="normal"
+                                android:textColor="@color/app_green"
+                                android:layout_marginStart="3dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="How much do you wish to deposit"
+                                android:textSize="18sp"
+                                android:fontFamily="sans-serif-medium"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginBottom="8dp" />
+                            <EditText
+                                android:hint="KES"
+                                android:id="@+id/txtTopUpAmount"
+                                android:textColorHint="@color/icon_tint"
+                                android:backgroundTint="@color/icon_tint"
+                                android:textColor="@color/purple_500"
+                                android:textSize="18sp"
+                                android:fontFamily="sans-serif-medium"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:imeOptions="actionNext"
+                                android:inputType="numberSigned" />
+
+                            <TextView
+                                android:textStyle="normal"
+                                android:textColor="@color/app_green"
+                                android:layout_marginStart="3dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Loan Amount"
+                                android:textSize="18sp"
+                                android:fontFamily="sans-serif-medium"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginBottom="8dp" />
+                            <EditText
+                                android:hint="KES"
+                                android:id="@+id/txtLoanAmount"
+                                android:textColorHint="@color/icon_tint"
+                                android:backgroundTint="@color/icon_tint"
+                                android:textColor="@color/purple_500"
+                                android:textSize="18sp"
+                                android:fontFamily="sans-serif-medium"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:imeOptions="actionNext"
+                                android:inputType="numberSigned" />
+
+                            <TextView
+                                android:textStyle="normal"
+                                android:textColor="@color/app_green"
+                                android:layout_marginStart="3dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Type of Repayment"
+                                android:textSize="18sp"
+                                android:fontFamily="sans-serif-medium"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginBottom="8dp" />
+
+                            <RelativeLayout
+                                android:background="@drawable/white_curved_border_background"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+                                <Spinner
+                                    android:entries="@array/repayment_types"
+                                    android:elevation="10dp"
+                                    android:backgroundTint="@color/dark_gray"
+                                    android:id="@+id/txtRepaymentType"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="45dp"
+                                    android:gravity="center_vertical" />
+                            </RelativeLayout>
+
+                            <TextView
+                                android:textStyle="normal"
+                                android:textColor="@color/app_green"
+                                android:layout_marginStart="3dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Repayment Amount"
+                                android:textSize="18sp"
+                                android:fontFamily="sans-serif-medium"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginBottom="8dp" />
+                            <EditText
+                                android:hint="KES"
+                                android:id="@+id/txtRepaymentAmount"
+                                android:textColorHint="@color/icon_tint"
+                                android:backgroundTint="@color/icon_tint"
+                                android:textColor="@color/purple_500"
+                                android:textSize="18sp"
+                                android:fontFamily="sans-serif-medium"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:imeOptions="actionNext"
+                                android:inputType="numberSigned" />
+
+
+                            <TextView
+                                android:textStyle="normal"
+                                android:textColor="@color/app_green"
+                                android:layout_marginStart="3dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Repayment Period"
+                                android:textSize="18sp"
+                                android:fontFamily="sans-serif-medium"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginBottom="8dp" />
+                            <EditText
+                                android:id="@+id/txtRepaymentPeriod"
+                                android:textColorHint="@color/icon_tint"
+                                android:backgroundTint="@color/icon_tint"
+                                android:textColor="@color/purple_500"
+                                android:textSize="18sp"
+                                android:fontFamily="sans-serif-medium"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:imeOptions="actionNext"
+                                android:inputType="text" />
+                        </LinearLayout>
+                    </LinearLayout>
+                    <!-- Include Dependents in Insurance Coverage (Only for Health Insurance) -->
+
+
+                </LinearLayout>
+
+
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_marginBottom="50dp"
+                    android:id="@+id/btnProceed"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_style"
+                    android:text="Proceed"
+                    android:textAllCaps="false"
+                    android:textSize="16sp"
+                    android:layout_marginTop="45dp"
+                    android:textColor="@color/white"
+                    android:fontFamily="sans-serif-medium"/>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
